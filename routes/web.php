@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 Route::group(['prefix' => 'post', [PostController::class, 'createPost']], function(){
     Route::get('/create', [PostController::class, 'createPost'])->name('create-post');
     Route::post('/save', [PostController::class, 'savePost'])->name('save-post');
+    
 });
 
 

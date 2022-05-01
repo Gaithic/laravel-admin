@@ -12,7 +12,7 @@ class PostController extends Controller
     public function createPost(){
         $title = "To Create Post's";
         $user  = Auth::user();
-        return view('posts.create', 
+        return view('posts.create',
         [
             'title' => $title,
             'user'  => $user
@@ -36,8 +36,15 @@ class PostController extends Controller
         $posts->title = $request->title;
         $posts->body = $request->body;
         $posts->cover_image = $fileName;
-        $posts->save();
+        $posts->user_id = Auth::user()->id;
+        $res = $posts->save();
+
+        if($res){
+            return redirect()->intended(route('/'))->with('success', 'Blog is created Wait admin approval for publish');
+        }
 
 
     }
+
+
 }

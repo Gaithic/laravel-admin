@@ -11,7 +11,7 @@
               <div class="alert alert-danger">
                   <strong>{{ $message }}</strong>
               </div>
-            
+
             @enderror
           </div>
           <div class="form-group">
@@ -39,9 +39,9 @@
           </div>
           <div class="form-group" >
           </div>
-      </form>    
-        
+      </form>
+
   </div>
 
-    
+
 @endsection

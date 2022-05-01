@@ -18,17 +18,17 @@
         <i class="fas fa-search"></i>
       </a>
       <div class="navbar-search-block">
-        
+
       </div>
     </li>
 
     <!-- Messages Dropdown Menu -->
     <li class="nav-item dropdown">
-      
+
     </li>
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
-      
+
     </li>
     <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -102,12 +102,41 @@
                 <p>Create User</p>
               </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{route('/logout')}}" class="nav-link">
+                    {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
+                    <i class="right fas fa-angle-left"></i>
+                    {{-- <i class="fa fa-sign-out"></i> --}}
+                  <p>Manage Users</p>
+                </a>
+            </li>
+
           </ul>
         </li>
-        
+
+        <li class="nav-item">
+            <a href="{{route('/logout')}}" class="nav-link">
+                {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
+                <i class="right fas fa-angle-left"></i>
+                {{-- <i class="fa fa-sign-out"></i> --}}
+              <p style="font-size: 20px;">Manage Post</p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{route('/logout')}}" class="nav-link">
+                {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
+                <i class="fa fa-sign-out fa-2x"></i>
+                {{-- <i class="fa fa-sign-out"></i> --}}
+              <p style="font-size: 20px;">Logout</p>
+            </a>
+          </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
+
   </div>
   <!-- /.sidebar -->
 </aside>

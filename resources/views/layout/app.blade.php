@@ -13,18 +13,19 @@
   <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-  
+
 @include('layout.inc.message')
 @include('layout.inc.admin-nav')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('breadcrumbs')
     @yield('content')
-  </div>      
-@include('layout.inc.adminfooter')                      
-          
+  </div>
+@include('layout.inc.adminfooter')
+
 <!-- jQuery -->
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->

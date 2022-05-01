@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationValidation;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class AuthController extends Controller
 
     public function adminView(){
         $title = 'Admin Dashboard';
-        return view('layout.app', 
+        return view('layout.app',
         [
             'title' => $title
         ])->with('success', 'Welcome to Admin Dashboard');
@@ -40,11 +41,12 @@ class AuthController extends Controller
 
     public function adminDashboard(){
         $title = 'Admin Dashboard';
+        $user = User::all();
         return view('users.admindashboard',
         [
-            'title' => $title
-
-        ])->with('success', 'Ypu are logged in!');
+            'title' => $title,
+            'user' => $user,
+        ])->with('success', 'You are logged in!');
     }
 
     /**
@@ -53,7 +55,7 @@ class AuthController extends Controller
      */
     public function userRegisterView(){
         $title = 'Registration Page';
-        return view('auth.register', 
+        return view('auth.register',
         [
             'title' => $title
         ]);
@@ -71,7 +73,7 @@ class AuthController extends Controller
         $title = 'Dashboard';
         $users = User::all();
         // if (Auth::user()->role_id == 1) {
-        //     return view('layout.app', 
+        //     return view('layout.app',
         //     [
         //         'title' => $title,
         //         'users' => $users
@@ -83,8 +85,8 @@ class AuthController extends Controller
         //         'users'  => $users
         //     ])->with('success', 'You Have logged in!');
         // }
-        
-        
+
+
     }
 
     public function userView(){
@@ -103,13 +105,13 @@ class AuthController extends Controller
 
 
 /************************************************************************************************************/
-    // Logical area abov only view functions 
+    // Logical area abov only view functions
 /************************************************************************************************************/
-    
+
 
     /**
      * function to register user in db
-     * and @return view of login after 
+     * and @return view of login after
      * save() user form data
      */
 
@@ -127,9 +129,9 @@ class AuthController extends Controller
         }else{
             return redirect()->intended(route('/registerView'))->with('error', 'Oops something Went Wrong!');
         }
-       
 
-        
+
+
     }
 
     /**
@@ -138,12 +140,12 @@ class AuthController extends Controller
      * @return  useremail , passwrd
      */
 
-  
+
 
 
     public function userLogin(LoginRequest $request){
         /**
-         * first get credentials form above function 
+         * first get credentials form above function
          * or getCredentials function
         */
 
@@ -156,9 +158,9 @@ class AuthController extends Controller
                 if(Auth::check()){
                     return redirect()->intended(route('auth.dashboard'))->with('success', "You Have logged In!");
                 }
-               
-                
-                
+
+
+
             }else{
                 return redirect()->intended(route('login'))->with('error', 'Kindly register Email First!');
             }
@@ -175,7 +177,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerate();
         return redirect()->intended(route('/'))->with('success', 'You have been logged out!');
-        
+
     }
 
 
