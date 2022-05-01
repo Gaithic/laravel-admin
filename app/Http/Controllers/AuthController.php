@@ -38,17 +38,6 @@ class AuthController extends Controller
     }
 
 
-
-    public function adminDashboard(){
-        $title = 'Admin Dashboard';
-        $user = User::all();
-        return view('users.admindashboard',
-        [
-            'title' => $title,
-            'user' => $user,
-        ])->with('success', 'You are logged in!');
-    }
-
     /**
      * funciton to view user register page
      * @return view
@@ -184,12 +173,14 @@ class AuthController extends Controller
     public function dashboard(){
         $title = "Dashboard";
         $user = Auth::user();
+        $posts  = Post::all();
         if($user->role_id == 1){
             return view('users.admindashboard',
             [
                 'title' => $title,
-                'user' => $user
-            ])->with('succes', 'Welcome to Admin Dashboard!');
+                'user' => $user,
+                'posts' => $posts
+            ])->with('success', 'Welcome to Admin Dashboard!');
         }
         elseif($user->role_id == 2){
             return view('users.managerdashboard',

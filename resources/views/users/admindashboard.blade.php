@@ -31,7 +31,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
-                    
+                    <h2>{{$posts->count()}}</h2>
 
                     <p>All Post</p>
                   </div>

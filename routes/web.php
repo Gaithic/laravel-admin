@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,13 +38,16 @@ Route::get('/user-index', [AuthController::class, 'userView'])->name('user-index
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('auth.dashboard');
+    Route::get('/mange/post', [AdminController::class, 'mangePost'])->name('manage-post');
+    Route::get('/mange/users', [AdminController::class, 'manageUsers'])->name('manage-users');
+    Route::get('/edit/{id}', [AdminController::class, 'editUsers'])->name('edit.index');
 });
 
 
 Route::group(['prefix' => 'post', [PostController::class, 'createPost']], function(){
     Route::get('/create', [PostController::class, 'createPost'])->name('create-post');
     Route::post('/save', [PostController::class, 'savePost'])->name('save-post');
-    
+    Route::get('/status', [PostController::class, 'pendingView'])->name('/status');
 });
 
 

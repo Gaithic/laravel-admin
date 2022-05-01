@@ -104,7 +104,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{route('/logout')}}" class="nav-link">
+                <a href="{{route('manage-users')}}" class="nav-link">
                     {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
                     <i class="right fas fa-angle-left"></i>
                     {{-- <i class="fa fa-sign-out"></i> --}}
@@ -116,7 +116,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="{{route('/logout')}}" class="nav-link">
+            <a href="{{route('manage-post')}}" class="nav-link">
                 {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
                 <i class="right fas fa-angle-left"></i>
                 {{-- <i class="fa fa-sign-out"></i> --}}
