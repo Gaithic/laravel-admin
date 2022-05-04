@@ -132,9 +132,9 @@ class AdminController extends Controller
             if($res){
                 return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
             }else{
-
+ 
             }
-            
+
             
         }
     }
