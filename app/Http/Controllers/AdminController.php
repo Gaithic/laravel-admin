@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ManageUsersValidation;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
@@ -78,7 +79,7 @@ class AdminController extends Controller
     }
 
 
-    public function editUsers($id){
+    public function editUsers( $id){
         $user = User::find($id);
         return view('users.admin.editusers',
         [
@@ -99,4 +100,42 @@ class AdminController extends Controller
       }
 
     }
+
+
+    public function adminEditPost(Request $request, $id){
+        if($request->hasFile('cover_image')){
+            $file = $request->file('cover_image');
+            $fileWithExt = $file->getClientOriginalName();
+            $filepathinfo  = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            $fileName = $filepathinfo.'_'.time().'.'.$extension;
+            $path = $file->move('storage/cover_image', $fileName);
+        }else{
+            $fileName = 'Noimage.jpg';
+        }
+
+        $posts = Post::find($id);
+        $posts->title = $request->title;
+        $posts->body = $request->body;
+        $posts->cover_image = $fileName;
+        if(auth()->user()->role_id==1){
+            $posts->isapproved = $request->isapproved;
+            $res = $posts->save();
+            if($res){
+                return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
+            }else{
+
+            }
+        }else{
+            $posts->isapproved = $request->isapproved;
+            $res = $posts->save();
+            if($res){
+                return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
+            }else{
+
+            }
+            
+        }
+    }
+
 }

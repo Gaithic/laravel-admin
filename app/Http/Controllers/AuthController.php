@@ -21,12 +21,14 @@ use function PHPUnit\Framework\returnSelf;
 class AuthController extends Controller
 {
 
-
     public function mainIndex(){
         $title = 'To See All  Your Posts Here';
-        return view('layout.master', [
-            'title' => $title
-        ]);
+        $posts = Post::all();
+            return view('users.mainDashboard', [
+                'title' => $title,
+                'posts' => $posts
+            ]);
+        
     }
 
     public function adminView(){
@@ -114,7 +116,7 @@ class AuthController extends Controller
         $res = $users->save();
         if($res){
 
-            return redirect()->intended(route('/loginView', compact('users')))->with('success', "Your account is created Kindly Login!");
+            return redirect()->intended(route('login', compact('users')))->with('success', "Your account is created Kindly Login!");
         }else{
             return redirect()->intended(route('/registerView'))->with('error', 'Oops something Went Wrong!');
         }
@@ -187,19 +189,22 @@ class AuthController extends Controller
             [
                 'title' => $title,
                 'user' => $user
+                
             ])->with('success', 'Welcome to Manager Dashboard');
         }
         elseif($user->role_id==3){
             return view('users.userdashboard',
             [
                 'title' => $title,
-                'user' => $user
+                'user' => $user,
+                'posts' => $posts
             ]);
         }else{
             return view('layout.master',
             [
                 'title' => $title,
-                'user' => $user
+                'user' => $user,
+                'posts' => $posts
             ]);
         }
     }

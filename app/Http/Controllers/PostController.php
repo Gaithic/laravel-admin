@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormsupdateValidation;
+use App\Http\Requests\ManageUsersValidation;
 use App\Http\Requests\PostCreateValidation;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 
 use function Ramsey\Uuid\v1;
 
@@ -22,7 +26,7 @@ class PostController extends Controller
     }
 
 
-    public function savePost(PostCreateValidation $request){
+    public function savePost(Request $request){
         if($request->hasFile('cover_image')){
             $file = $request->file('cover_image');
             $fileWithExt = $file->getClientOriginalName();
@@ -39,6 +43,7 @@ class PostController extends Controller
         $posts->body = $request->body;
         $posts->cover_image = $fileName;
         $posts->user_id = Auth::user()->id;
+        $posts->isapproved = 2;
         $res = $posts->save();
 
         if($res){
@@ -49,12 +54,26 @@ class PostController extends Controller
 
     }
 
+    /**
+     * user edit view page link function
+     */
+
+    public function editView(Request $reques){
+        $title = "Your All Pernal Post's is Here";
+       return view('posts.update',
+    [
+        'title' => $title
+    ]
+    );
+    }
 
     public function editPost($id){
-        $post = Post::find($id);
-        return view('posts.edit',
+        $posts = Post::find($id);
+       
+        return view('users.admin.editpost',
         [
-            'post' => $post
+            'posts' => $posts,
+            
         ]);
     }
 
@@ -70,17 +89,34 @@ class PostController extends Controller
             $fileName = 'Noimage.jpg';
         }
 
-        $post = new Post();
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->cover_image = $fileName;
-        $post->user_id = Auth::user()->id;
-        $res = $post->save();
+        $posts = Post::find($id);
+        $posts->title = $request->title;
+        $posts->body = $request->body;
+        $posts->cover_image = $fileName;
+        $posts->user_id = Auth::user()->id;
+        if(auth()->user()->role_id==1){
+            $posts->isapproved = $request->isapproved;
+            $res = $posts->save();
+            if($res){
+                return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
+            }else{
 
-        if($res){
-            return redirect()->intended(route('edit-post', ['id' => $post->id]))->with('success', 'updated successfully');
+            }
+        }else{
+            $posts->isapproved = $request->isapproved;
+            $res = $posts->save();
+            if($res){
+                return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
+            }else{
+
+            }
+            
         }
-
+        
+        
+       
     }
 
+
+    
 }
