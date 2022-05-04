@@ -31,9 +31,10 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
-                    <h2>{{$posts->count()}}</h2>
+                    <h2>{{ $user->count() }}</h2>
+                    
 
-                    <p>All Post</p>
+                    <p>Registered Users</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-bag"></i>
@@ -46,9 +47,9 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                    <h3>{{$posts->count()}}</h2>
 
-                    <p>New Post</p>
+                    <p>All Post</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -61,8 +62,8 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                   <div class="inner">
-                    <h3>{{ $user->count() }}</h3>
-                    <p>User Registrations</p>
+                    <h3></h3>
+                    <p>Pending For Approval</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-person-add"></i>
@@ -77,7 +78,7 @@
                   <div class="inner">
                     <h3>65</h3>
 
-                    <p>Unique Visitors</p>
+                    <p>Reject Post</p>
                   </div>
                   <div class="icon">
                     <i class="ion ion-pie-graph"></i>
