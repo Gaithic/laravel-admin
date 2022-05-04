@@ -36,6 +36,7 @@
                             <th>Post Body</th>
                             <th>Post Image</th>
                             <th>Action</th>
+                  
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,7 @@
                     {data: 'title', name: 'title'},
                     {data: 'body', name: 'body'},
                     {data: 'cover_image', name: '<img src="/storage/cover_image">'},
+                   
                  
                     {
                         data: 'action',
