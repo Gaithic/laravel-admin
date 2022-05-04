@@ -106,7 +106,7 @@
             <li class="nav-item">
                 <a href="{{route('manage-uesers')}}" class="nav-link">
                     {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
-                    <i class="right fas fa-angle-left"></i>
+                    <i class="right fas fa-user"></i>
                     {{-- <i class="fa fa-sign-out"></i> --}}
                   <p>Manage Users</p>
                 </a>
@@ -118,7 +118,7 @@
         <li class="nav-item">
             <a href="{{route('manage-post')}}" class="nav-link">
                 {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
-                <i class="right fas fa-angle-left"></i>
+                <i class="right fas fa-folder"></i>
                 {{-- <i class="fa fa-sign-out"></i> --}}
               <p >Manage Post</p>
             </a>
