@@ -33,15 +33,17 @@
                 @else               
                     @include('layout.inc.message') 
                     @include('layout.inc.frontnav')
+
+                    
                 @endif
                
             @endif
             
            
 
+            
             @yield('content')
-    
-    <div>
+            <div>
 
 
 
