@@ -97,7 +97,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
+              <a href="{{ route('create-user') }}" class="nav-link">
                 <i class="fa fa-plus-circle nav-icon" aria-hidden="true"></i>
                 <p>Create User</p>
               </a>
