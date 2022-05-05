@@ -60,30 +60,9 @@ class AuthController extends Controller
 
     }
 
-    public function userDashboard(Request $request){
-        $title = 'Dashboard';
-        $users = User::all();
-        // if (Auth::user()->role_id == 1) {
-        //     return view('layout.app',
-        //     [
-        //         'title' => $title,
-        //         'users' => $users
-        //     ])->with('success', 'You Have logged in!');
-        // }elseif(Auth::check($request->role_id== 3)){
-        //     return view('layout.master',
-        //     [
-        //         'title'  => $title,
-        //         'users'  => $users
-        //     ])->with('success', 'You Have logged in!');
-        // }
-
-
-    }
-
     public function userView(){
         $title = 'Dashboard';
         $users = User::all();
-        // return redirect()->intended('/user-index')
         return view('users.userdashboard',
         [
             'title' => $title,
@@ -175,7 +154,7 @@ class AuthController extends Controller
     public function dashboard(){
         $title = "Dashboard";
         $user = Auth::user();
-        $posts  = Post::all();
+        $posts  = Post::with('user')->get();
         if($user->role_id == 1){
             return view('users.admindashboard',
             [

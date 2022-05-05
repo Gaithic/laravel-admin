@@ -11,42 +11,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
-    // public function mangePost(){
-    //     $title = "Manage Post";
-    //     $users  = User::all();
-    //     $posts = Post::all();
-    //     return view('users.admin.managepost' ,
-    //     [
-    //         'title' => $title,
-    //         'posts' => $posts,
-    //         'users'  => $users
-    //     ])->with("success", "Let's approve the pending Post");
-    // }
-
-    // public function manageUsers(){
-    //     $users = User::all();
-    //     return view('users.admin.manageusers',
-    //     [
-    //         'users' => $users
-    //     ]);
-    // }
-
-    // public function editUsers($id){
-    //     $users = User::find($id);
-    //     return view('users.admin.editusers',
-    //     [
-    //         'users' => $users
-    //     ]);
-    // }
-
-
     public function manageUesers(Request $request){
         if($request->ajax()){
             $data = User::query();
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                $btn = '<a href="'.route('edit-users', ['id' => $row->id]).'" class=dit btn btn-primay btn-sm>View</a>';
+                $btn = '<a href="'.route('edit-users', ['id' => $row->id] ).'" class=dit btn btn-primay btn-sm>View</a>';
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -80,15 +51,15 @@ class AdminController extends Controller
 
 
     public function editUsers( $id){
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('users.admin.editusers',
         [
             'user' => $user
         ]);
     }
 
-    public function saveUsers(Request $request, $id){
-      $user = User::find($id);
+    public function updateUsers(Request $request, $id){
+      $user = User::findOrFail($id);
       $user->username = $request->username;
       $user->email  = $request->email;
       $user->contact = $request->contact;
@@ -103,7 +74,7 @@ class AdminController extends Controller
 
 
     public function adminEditPost(Request $request, $id){
-        if($request->hasFile('cover_image')){
+        if($request->file('cover_image')){
             $file = $request->file('cover_image');
             $fileWithExt = $file->getClientOriginalName();
             $filepathinfo  = pathinfo($fileWithExt, PATHINFO_FILENAME);
@@ -114,7 +85,7 @@ class AdminController extends Controller
             $fileName = 'Noimage.jpg';
         }
 
-        $posts = Post::find($id);
+        $posts = Post::findOrFail($id);
         $posts->title = $request->title;
         $posts->body = $request->body;
         $posts->cover_image = $fileName;

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
+use Yajra\DataTables\Facades\DataTables;
 
 use function Ramsey\Uuid\v1;
 
@@ -58,13 +59,10 @@ class PostController extends Controller
      * user edit view page link function
      */
 
-    public function editView(Request $reques){
-        $title = "Your All Pernal Post's is Here";
-       return view('posts.update',
-    [
-        'title' => $title
-    ]
-    );
+    public function postView(Request $request, ){
+        
+        return view('users.status');
+      
     }
 
     public function editPost($id){
@@ -77,46 +75,29 @@ class PostController extends Controller
         ]);
     }
 
+
     public function updatePost(Request $request, $id){
-        if($request->hasFile('cover_image')){
-            $file = $request->file('cover_image');
-            $fileWithExt = $file->getClientOriginalName();
-            $filepathinfo  = pathinfo($fileWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('cover_image')->getClientOriginalExtension();
-            $fileName = $filepathinfo.'_'.time().'.'.$extension;
-            $path = $file->move('storage/cover_image', $fileName);
-        }else{
-            $fileName = 'Noimage.jpg';
+
+        $posts = Post::findOrFail($id);
+   
+        if($request->file != ''){        
+             $path = public_path().'storage/cover_image';
+   
+             //code for remove old file
+             if($posts->file != ''  && $posts->file != null){
+                  $file_old = $path.$posts->file;
+                  unlink($file_old);
+             }
+   
+             //upload new file
+             $file = $request->file;
+             $filename = $file->getClientOriginalName();
+             $file->move($path, $filename);
+   
+             //for update in table
+             $posts->update(['file' => $filename]);
         }
-
-        $posts = Post::find($id);
-        $posts->title = $request->title;
-        $posts->body = $request->body;
-        $posts->cover_image = $fileName;
-        $posts->user_id = Auth::user()->id;
-        if(auth()->user()->role_id==1){
-            $posts->isapproved = $request->isapproved;
-            $res = $posts->save();
-            if($res){
-                return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
-            }else{
-
-            }
-        }else{
-            $posts->isapproved = $request->isapproved;
-            $res = $posts->save();
-            if($res){
-                return redirect()->intended(route('edit-post', ['id' => $posts->id]))->with('success', 'updated successfully');
-            }else{
-
-            }
-            
-        }
-        
-        
-       
-    }
-
+   }
 
     
 }
