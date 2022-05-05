@@ -26,7 +26,7 @@
 
 
 @section('content')
-<form action="" method="post" id="userPost" onsubmit="return userValidation">
+<form action="" method="post" id="updateUser" style="color: red;">
     @csrf
     @method('PUT')
     <div class="card-body">

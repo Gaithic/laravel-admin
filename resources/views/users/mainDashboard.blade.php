@@ -41,7 +41,7 @@
                       </a>
                       <p class="post-meta">
                           Posted by 
-                          <a href="#!">{{ $post->user_id }}</a><br>
+                          <a href="#!">{{ $post->user->username }}</a><br>
                           {{ $post->created_at }}
                       </p>
                   </div>
