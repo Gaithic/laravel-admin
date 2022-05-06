@@ -45,7 +45,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/manage/users', [AdminController::class, 'manageUesers'])->name('manage-uesers');
     Route::get('/manage/post', [AdminController::class, 'managePost'])->name('manage-post');
     Route::get('/edit-users/{id}', [AdminController::class, 'editUsers'])->name('edit-users');
-    Route::put('/update/{id}', [AdminController::class, 'adminEditPost'])->name('admin-update-post');
+    Route::put('/admin-update-user/{id}', [AdminController::class, 'updateUsers'])->name('update-user');
+    Route::put('/admin-update-post/{id}', [AdminController::class, 'adminEditPost'])->name('admin-update-post');
     Route::get('/edit/{id}', [PostController::class, 'editPost'])->name('edit-post');
 });
 
@@ -55,7 +56,7 @@ Route::group(['prefix' => 'post', [PostController::class, 'createPost']], functi
     Route::post('/save', [PostController::class, 'savePost'])->name('save-post');
     Route::get('/status', [PostController::class, 'pendingView'])->name('status');
     Route::get('/edit', [PostController::class, 'postView'])->name('user-post');
-    Route::put('/update/{id}', [PostController::class, 'updatePost'])->name('update-post');
+    Route::put('/user-update-post/{id}', [PostController::class, 'updatePost'])->name('update-post');
     Route::get('/user/personal', [UserController::class, 'viewAllUserPost'])->name('personal-dashboard');
 });
 
