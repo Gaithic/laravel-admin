@@ -26,28 +26,28 @@
 @endsection
 
 @section('content')
-<form action="{{ route('admin-update-post', ['id' => $post->id]) }}" method="post" id="userPost" onsubmit="return userValidation">
+<form action="{{ route('admin-update-post', ['id' => $posts->id]) }}" method="post"enctype="multipart/form-data"  id="userPost" onsubmit="return userValidation">
     @csrf
     @method('PUT')
     <div class="card-body">
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Title</label>
-        <input type="text" class="form-control"  name="title"  placeholder="Post Name" value="{{ $post->title }}">
+        <input type="text" class="form-control"  name="title"  placeholder="Post Name" value="{{ $posts->title }}">
       </div>
-     
+
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Body</label>
-        <textarea type="text" class="ckeditor form-control" id="body" name="body" placeholder="Enter Message Here">{!! $post->body !!}</textarea>
+        <textarea type="text" class="ckeditor form-control" id="body" name="body" placeholder="Enter Message Here">{!! $posts->body !!}</textarea>
       </div>
-  
+
 
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Image</label>
         <input type="file" class="form-control"  name="cover_image" placeholder="Change Image" >
       </div>
-      <img src="{{ asset('/storage/cover_image/'.$post->cover_image) }}"/>
+      <img src="{{ asset('/storage/cover_image/'.$posts->cover_image) }}"/>
 
-    
+
     <div class="form-group" style="margin:10px;">
           <input type="radio" id="approved" name="isapproved" value="1" style="accent-color: green;">
           <label for="Appraved" style="color: green;">Approve</label>
@@ -55,11 +55,11 @@
           <input type="radio" id="approved" name="isapproved" value="2" style="accent-color: red;">
           <label for="cancel" style="color:red;">Cancel</label>
     </div>
-      
 
-    
-  
-    
+
+
+
+
     </div>
     <!-- /.card-body -->
 
@@ -67,7 +67,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
       <button type="submit" style="float: right;" class="btn btn-primary">Cancel</button>
     </div>
-    
+
   </form>
   @push('scripts')
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -81,6 +81,6 @@
       $('.ckeditor').ckeditor();
   });
   </script>
- 
+
   @endpush
 @endsection

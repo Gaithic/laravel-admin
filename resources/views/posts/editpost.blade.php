@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.master')
 
 
 @push('styles')
@@ -27,43 +27,36 @@
 
 @section('content')
 
-<form action="{{ route('admin-update-post', ['id' => $posts->id]) }}" method="post" id="userPost" onsubmit="return userValidation">
-  @csrf
-  @method('PUT')
-  <div class="card-body">
-    <div class="form-group">
-      <label for="exampleInputEmail1" >Post Title</label>
-      <input type="text" class="form-control"  name="title"  placeholder="Post Name" value="{{ $post->title }}">
+
+<form action="{{ route('update-post', ['id', $posts->id]) }}" method="post" id="userPost" enctype="multipart/form-data" class="flex align-items-cemter" style="margin: 25px;">
+    @csrf
+    @method('PUT')
+    <div class="card-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1" >Post Title</label>
+        <input type="text" class="form-control"  name="title"  placeholder="Post Name" value="{{$posts->title}}">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1" >Post Body</label>
+        <textarea type="text" class="ckeditor form-control" id="body" name="body" placeholder="Enter Message Here">{{$posts->body}}</textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label for="exampleInputEmail1" >Post Image</label>
+        <input type="file" class="form-control"  name="cover_image" placeholder="Change Image" >
+      </div>
+      <img src="{{ asset('/storage/cover_image/'.$posts->cover_image) }}"/>
     </div>
-   
-    <div class="form-group">
-      <label for="exampleInputEmail1" >Post Body</label>
-      <textarea type="text" class="ckeditor form-control" id="body" name="body" placeholder="Enter Message Here">{!! $post->body !!}</textarea>
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" style="float: right;" class="btn btn-primary">Cancel</button>
     </div>
 
-
-    <div class="form-group">
-      <label for="exampleInputEmail1" >Post Image</label>
-      <input type="file" class="form-control"  name="cover_image" placeholder="Change Image" >
-    </div>
-    <img src="{{ asset('/storage/cover_image/'.$posts->cover_image) }}"/>
-
-  
-
-
-  
-
-  
-  </div>
-  <!-- /.card-body -->
-
-  <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="submit" style="float: right;" class="btn btn-primary">Cancel</button>
-  </div>
-  
-</form>
-
+  </form>
   @push('scripts')
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -76,6 +69,6 @@
       $('.ckeditor').ckeditor();
   });
   </script>
- 
+
   @endpush
 @endsection

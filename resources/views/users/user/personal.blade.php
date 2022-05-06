@@ -44,23 +44,23 @@
                             <th>Post Body</th>
                             <th>Post Image</th>
                             <th>Action</th>
-                  
+
                         </tr>
                     </thead>
                     <tbody>
-                      
-                    
+
+
                      @if($posts)
                      @foreach ($posts as $post )
                           <tr>
                           <td>{{ $post->title}}</td>
                           <td>{{ $post->body }}</td>
-                          <td><img src={{'/storage/cover_image'}} alt="Logo" height="50"/></td>
-                          <td><a href="{{ route('user-edit-post', ['id' => $post->id]) }}"><i class="right fas fa-setting" style="background: black"></i>Edit</a></td>
+                          <td><img src="{{asset('/storage/cover_image/'.$post->cover_image)}}" alt="Logo" height="50"/></td>
+                          <td><a href="{{ route('user-edit-post', ['id' => $post->id])}}"><i class="right fas fa-setting" style="background: black"></i>Edit</a></td>
                           </tr>
                       @endforeach
-                     
-                 
+
+
                      @endif
                     </tbody>
                 </table>
