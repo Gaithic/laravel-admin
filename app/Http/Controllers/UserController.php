@@ -17,7 +17,7 @@ class UserController extends Controller
         $pending = Post::where('isapproved', '=', 2);
         $reject = Post::where('isapproved', '=', 3);
 
-      
+
             return view('users.status',
             [
                 'title' => $title,
@@ -26,9 +26,9 @@ class UserController extends Controller
                 'reject' => $reject
             ]
             );
-        
 
-        
+
+
     }
 
 
@@ -38,8 +38,7 @@ class UserController extends Controller
         $title = "All Personal Post";
         $posts = Post::all();
         $posts = Post::where('user_id','=', Auth::id())->get();
-        $posts = Post::where('id', '=', $posts->id());
-        return view('users.user.personal', 
+        return view('users.user.personal',
         [
             'title' => $title,
             'posts' => $posts
@@ -47,15 +46,22 @@ class UserController extends Controller
     }
 
 
-    public function editOwnPost(){
-        $title = 'Edit Post';
-        $posts = Post::all();
-        $posts = Post::where('user_id', '=', Auth::id())->get();
-        return view('posts.editpost', 
+    public function editOwnPost($id){
+        $title = "Edit All Personal Post";
+        $posts = Post::findOrFail($id);
+        return view('posts.editpost',
         [
-            'titl' => $title,
+            'title' => $title,
             'posts' => $posts
-            
+        ]);
+    }
+
+
+    public function editUsers( $id){
+        $user = User::findOrFail($id);
+        return view('users.admin.editusers',
+        [
+            'user' => $user
         ]);
     }
 }

@@ -60,44 +60,50 @@ class PostController extends Controller
      */
 
     public function postView(Request $request, ){
-        
+
         return view('users.status');
-      
+
     }
 
     public function editPost($id){
         $posts = Post::find($id);
-       
+
         return view('users.admin.editpost',
         [
             'posts' => $posts,
-            
+
         ]);
     }
 
 
     public function updatePost(Request $request, $id){
 
-        $posts = Post::findOrFail($id);
-   
-        if($request->file != ''){        
-             $path = public_path().'storage/cover_image';
-   
-             //code for remove old file
-             if($posts->file != ''  && $posts->file != null){
-                  $file_old = $path.$posts->file;
-                  unlink($file_old);
-             }
-   
-             //upload new file
-             $file = $request->file;
-             $filename = $file->getClientOriginalName();
-             $file->move($path, $filename);
-   
-             //for update in table
-             $posts->update(['file' => $filename]);
+        if($request->hasFile('cover_image')){
+            $file = $request->file('cover_image');
+            $fileWithExt = $file->getClientOriginalName();
+            $filepathinfo  = pathinfo($fileWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('cover_image')->getClientOriginalExtension();
+            $fileName = $filepathinfo.'_'.time().'.'.$extension;
+            $path = $file->move('storage/cover_image', $fileName);
+        }else{
+            $fileName = 'Noimage.jpg';
         }
+
+        $posts = Post::find($id);
+        $posts->title = $request->title;
+        $posts->body = $request->body;
+        $posts->cover_image = $fileName;
+        $posts->user_id = Auth::user()->id;
+        $posts->isapproved = 2;
+        $res = $posts->save();
+
+        if($res){
+            return redirect()->intended(route('/'))->with('success', 'Blog is created Wait admin approval for publish');
+        }
+        return redirect()->intended(route('create-post'))->with('error', 'Oops something Went wrong Try agai later!');
+
+
    }
 
-    
+
 }
