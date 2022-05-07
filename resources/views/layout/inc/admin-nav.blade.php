@@ -97,7 +97,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('create-user') }}" class="nav-link">
+              <a href="{{ route('create.user') }}" class="nav-link">
                 <i class="fa fa-plus-circle nav-icon" aria-hidden="true"></i>
                 <p>Create User</p>
               </a>
@@ -123,6 +123,16 @@
               <p >Manage Post</p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{route('manage-post')}}" class="nav-link">
+                {{-- <i class="fa fa-sign-out-circle nav-icon" aria-hidden="true"></i> --}}
+                <i class="right fas fa-gear"></i>
+                {{-- <i class="fa fa-sign-out"></i> --}}
+              <p >Setting</p>
+            </a>
+        </li>
+
 
         <li class="nav-item">
             <a href="{{route('/logout')}}" class="nav-link">

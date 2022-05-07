@@ -28,7 +28,7 @@
                 All Users
             </div>
             <div class="card-body table-responsive table-striped table-bordered">
-          
+
                 <table class="table" id="data-table">
                     <thead>
                         <tr>

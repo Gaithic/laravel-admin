@@ -22,7 +22,7 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
@@ -34,7 +34,7 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
@@ -46,7 +46,7 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
@@ -58,11 +58,11 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
-            
+
             <div class="wrap-input100 validate-input" data-validate="Confirm password">
                 <input class="input100" type="password" name="password_confirmation" id="confirm-password" placeholder="Confirm Password">
                 <span class="focus-input100" data-placeholder="&#xf191;"></span>
@@ -78,17 +78,17 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
             <div class="container-login100-form-btn">
                 <input class="login100-form-btn" type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                    
+
             </div>
 
             <div class="text-center p-t-90">
-                <a class="txt1" href="#">
+                <a class="txt1" href="{{route('forget-password')}}">
                     Forgot Password?
                 </a>
             </div>

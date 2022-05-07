@@ -26,7 +26,7 @@
 
 
 @section('content')
-<form action="{{route('update-user', ['id' => $user->id])}}" method="post" id="userPost" onsubmit="return userValidation">
+<form action="{{route('update-user', ['id' => $user->id])}}" method="post" id="userPost" style="color:red;">
     @csrf
     @method('PUT')
     <div class="card-body">
@@ -80,7 +80,7 @@
 
   <script>
     $(document).ready(function() {
-        $("#updateUser").validate({
+        $("#userPost").validate({
             rules: {
               username: "required",
               email: "required",

@@ -14,6 +14,8 @@
         </title>
         <link href="{{ asset('/front/css/styles.css') }}" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
         <link href="{{ asset('/front/css/main.css') }}" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
 
@@ -31,10 +33,10 @@
                 @if(Auth::check())
 
                     @include('layout.inc.header')
-                    @include('layout.inc.message')
+                    {{-- @include('layout.inc.message') --}}
                     @include('layout.inc.usernav')
                 @else
-                    @include('layout.inc.message')
+                    {{-- @include('layout.inc.message') --}}
                     @include('layout.inc.frontnav')
 
 

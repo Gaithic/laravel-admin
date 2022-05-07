@@ -12,9 +12,9 @@
 
             <span class="login100-form-title p-b-34 p-t-27">
                 {{ $title }}
-                
+
             </span>
-           
+
             <div class="wrap-input100 validate-input" data-validate = "Enter Email">
                 <input class="input100" type="email" name="email" placeholder="Enter Email">
                 <span class="focus-input100" data-placeholder="&#xf207;"></span>
@@ -23,7 +23,7 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
@@ -36,7 +36,7 @@
             <div class="alert alert-danger" role="alert">
                 <small>
                     <strong>{{ $message }}</strong>
-                </small>  
+                </small>
             </div>
             @enderror
 
@@ -54,7 +54,7 @@
             </div>
 
             <div class="text-center p-t-90">
-                <a class="txt1" href="#">
+                <a class="txt1" href="{{route('forget-password')}}">
                     Forgot Password?
                 </a>
             </div>

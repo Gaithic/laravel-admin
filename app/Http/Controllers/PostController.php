@@ -7,6 +7,7 @@ use App\Http\Requests\ManageUsersValidation;
 use App\Http\Requests\PostCreateValidation;
 use App\Models\Post;
 use App\Models\User;
+use  DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
@@ -16,13 +17,14 @@ use function Ramsey\Uuid\v1;
 
 class PostController extends Controller
 {
-    public function createPost(){
+    public function createUserPost (){
         $title = "To Create Post's";
         $user  = Auth::user();
+        $posts = Post::all();
         return view('posts.create',
         [
             'title' => $title,
-            'user'  => $user
+            'user'  => $user,
         ])->with('success', 'Lets Create something!');
     }
 
@@ -98,12 +100,22 @@ class PostController extends Controller
         $res = $posts->save();
 
         if($res){
-            return redirect()->intended(route('/'))->with('success', 'Blog is created Wait admin approval for publish');
+            return redirect()->intended(route('user-post'))->with('success', 'Blog is created Wait admin approval for publish');
         }
-        return redirect()->intended(route('create-post'))->with('error', 'Oops something Went wrong Try agai later!');
+        return redirect()->intended(route('create-post'))->with('error', 'Oops something Went wrong Try again later!');
 
 
-   }
+    }
+
+
+
+    public function delete($id){
+        $res = DB::delete('delete from posts where id = ?',[$id]);
+        if($res){
+            return redirect()->back()->with('message', 'user Deleted Successfully');
+        }
+
+    }
 
 
 }

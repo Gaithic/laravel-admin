@@ -44,6 +44,7 @@
                             <th>Post Body</th>
                             <th>Post Image</th>
                             <th>Action</th>
+                            <th>Delete</th>
 
                         </tr>
                     </thead>
@@ -54,9 +55,10 @@
                      @foreach ($posts as $post )
                           <tr>
                           <td>{{ $post->title}}</td>
-                          <td>{{ $post->body }}</td>
+                          <td>{!! $post->body !!}</td>
                           <td><img src="{{asset('/storage/cover_image/'.$post->cover_image)}}" alt="Logo" height="50"/></td>
-                          <td><a href="{{ route('user-edit-post', ['id' => $post->id])}}"><i class="right fas fa-setting" style="background: black"></i>Edit</a></td>
+                          <td><a href="{{ route('user-edit-post', ['id' => $post->id])}}"><i class="right fas fa-setting" style="color: black"></i>Edit</a></td>
+                          <td><a type="submit" href="{{route('post.delete', ['id' => $post->id])}}" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</a></td>
                           </tr>
                       @endforeach
 
@@ -67,7 +69,31 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+     $('.show_confirm').click(function(event) {
+          var form =  $(this).closest("form");
+          var name = $(this).data("name");
+          event.preventDefault();
+          swal({
+              title: `Are you sure you want to delete this record?`,
+              text: "If you delete this, it will be gone forever.",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              form.submit();
+            }
+          });
+      });
+
+</script>
 </section>
+
 @endsection
 
 

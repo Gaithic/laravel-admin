@@ -2,11 +2,11 @@
 
 @section('content')
   <div style="margin: 20px;">
-    <form action="{{ route('save-post') }}" method="POST" enctype="multipart/form-data" class="flex align-items-cemter" style="margin: 25px;">
+    <form action="{{ route('save-post') }}" method="POST" enctype="multipart/form-data" id="userPost" class="flex align-items-cemter" style="margin: 25px;">
           @csrf
           <div class="form-group">
             <label for="exampleInputEmail1">Title</label>
-            <input type="text" class="form-control" id="title" name="title"  placeholder="Enter Title">
+            <input type="text" class="form-control"  name="title"  placeholder="Enter Title">
             @error('title')
               <div class="alert alert-danger">
                   <strong>{{ $message }}</strong>
@@ -42,6 +42,19 @@
       </form>
 
   </div>
+  <script>
+    $(document).ready(function() {
+        $("#userPost").validate({
+            rules: {
+              title: "required",
+              body: "required",
+              cover_image: "required",
+
+            }
+        });
+    });
+</script>
+
 
 
 @endsection

@@ -28,18 +28,18 @@
 @section('content')
 
 
-<form action="{{ route('update-post', ['id', $posts->id]) }}" method="post" id="userPost" enctype="multipart/form-data" class="flex align-items-cemter" style="margin: 25px;">
+<form action="{{ route('update-post', ['id' => $posts->id]) }}" method="post" id="userPost" enctype="multipart/form-data" class="flex align-items-cemter" style="margin: 25px;">
     @csrf
     @method('PUT')
     <div class="card-body">
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Title</label>
-        <input type="text" class="form-control"  name="title"  placeholder="Post Name" value="{{$posts->title}}">
+        <input type="text" class="form-control"   name="title"  placeholder="Post Name" value="{{$posts->title}}">
       </div>
 
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Body</label>
-        <textarea type="text" class="ckeditor form-control" id="body" name="body" placeholder="Enter Message Here">{{$posts->body}}</textarea>
+        <textarea type="text" class="ckeditor form-control" name="body" placeholder="Enter Message Here">{!!$posts->body!!}</textarea>
       </div>
 
 
@@ -69,6 +69,18 @@
       $('.ckeditor').ckeditor();
   });
   </script>
+    <script>
+        $(document).ready(function() {
+            $("#userPost").validate({
+                rules: {
+                  title: "required",
+                  body: "required",
+                  cover_image: "required",
+
+                }
+            });
+        });
+    </script>
 
   @endpush
 @endsection

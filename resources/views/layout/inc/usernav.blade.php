@@ -11,11 +11,12 @@ background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); margin:10px;
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('/') }}"   style="color:#fff">HOME</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('user-dashboard') }}"   style="color:#fff">Dashboard</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('create-post')}}"   style="color:#fff">Create Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('/logout') }}"  style="color:#fff"><i class="right fas fa-gear"></i>Setting</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('/logout') }}"  style="color:#fff">Logout</a></li>
-                
+
             </ul>
-            
-            
+
+
         </div>
     </div>
     {{-- <a  class="nav-link px-lg-3 py-3 py-lg-4" style="float: left; margin:20px; height:20px; display:flex; justify-content:center; align-items:center;">Logout</a> --}}

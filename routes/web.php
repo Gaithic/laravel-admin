@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,10 @@ Route::get('/registerView', [AuthController::class, 'userRegisterView'])->name('
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/save-user', [AuthController::class, 'userRegister'])->name('/save-user');
 Route::post('/user-login', [AuthController::class, 'userLogin'])->name('user-login');
+Route::get('/forget-password', [ForgotPasswordController::class, 'getEmail'])->name('forget-password');
+Route::post('/forget-password', [ForgotPasswordController::class,  'postEmail'])->name('forget-email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'getPassword'])->name('update-password');
+Route::post('/reset-password', [ResetPasswordController::class,'updatePassword'])->name('reset-password');
 
 
 Route::group(['prefix' => 'users'], function(){
@@ -41,23 +47,26 @@ Route::get('/user-edit-post/{id}', [UserController::class, 'editOwnPost'])->name
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('auth.dashboard');
-    Route::get('/create/user', [AdminController::class, 'createUser'])->name('create-user');
+    Route::post('/create/user', [AdminController::class, 'createUser'])->name('create-user');
     Route::get('/manage/users', [AdminController::class, 'manageUesers'])->name('manage-uesers');
     Route::get('/manage/post', [AdminController::class, 'managePost'])->name('manage-post');
     Route::get('/edit-users/{id}', [AdminController::class, 'editUsers'])->name('edit-users');
     Route::put('/admin-update-user/{id}', [AdminController::class, 'updateUsers'])->name('update-user');
     Route::put('/admin-update-post/{id}', [AdminController::class, 'adminEditPost'])->name('admin-update-post');
     Route::get('/edit/{id}', [PostController::class, 'editPost'])->name('edit-post');
+    Route::get('/create/user', [AdminController::class, 'createUserView'])->name('create.user');
+
 });
 
 
 Route::group(['prefix' => 'post', [PostController::class, 'createPost']], function(){
-    Route::get('/create', [PostController::class, 'createPost'])->name('create-post');
+    Route::get('/create', [PostController::class, 'createUserPost'])->name('create-post');
     Route::post('/save', [PostController::class, 'savePost'])->name('save-post');
     Route::get('/status', [PostController::class, 'pendingView'])->name('status');
     Route::get('/edit', [PostController::class, 'postView'])->name('user-post');
     Route::put('/user-update-post/{id}', [PostController::class, 'updatePost'])->name('update-post');
     Route::get('/user/personal', [UserController::class, 'viewAllUserPost'])->name('personal-dashboard');
+    Route::get('/delete/{id}', [PostController::class, 'delete'])->name('post.delete');
 });
 
 
