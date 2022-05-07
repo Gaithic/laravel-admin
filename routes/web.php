@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+
 Route::get('/', [AuthController::class, 'mainIndex'])->name('/');
 Route::get('/registerView', [AuthController::class, 'userRegisterView'])->name('/registerView');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -35,7 +36,8 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'getPassw
 Route::post('/reset-password', [ResetPasswordController::class,'updatePassword'])->name('reset-password');
 
 
-Route::group(['prefix' => 'users'], function(){
+
+Route::group(['prefix' => 'users', 'middleware' => ['admin']], function(){
 Route::get('/index', [AuthController::class, 'userDashboard'])->name('/index');
 Route::get('/logout', [AuthController::class, 'logout'])->name('/logout');
 Route::get('/user-index', [AuthController::class, 'userView'])->name('user-index');

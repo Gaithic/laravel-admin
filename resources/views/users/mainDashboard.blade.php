@@ -26,34 +26,64 @@
 
 @section('content')
 <!-- Main Content-->
+
+
 @foreach ($posts as $post )
   
    {{-- @if($post->user_id == auth()->user()->id) --}}
       @if($post->isapproved==1)
-        
+     
+      
         <div class="container px-4 px-lg-5">
           <div class="row gx-4 gx-lg-5 justify-content-center m-4 p-4">
-              <div class="row-md-10 row-lg-8 row-xl-7 m-4 p-4">
-                  <!-- Post preview-->
-                  <div class="post-preview">
-                      <a href="post.html"><h2 class="post-title">{{ $post->title }}</h2>
-                          <h3 class="post-subtitle">{!! $post->body !!}</h3>
-                      </a>
-                      <p class="post-meta">
-                          Posted by 
-                          <a href="#!">{{ $post->user->username }}</a><br>
-                          {{ $post->created_at }}
-                      </p>
-                  </div>
-                  <!-- Divider-->
-                  <hr class="my-4" />
-                  <!-- Pager-->
-                  <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
-              </div>
+              <table class="table custom-table" style="margin-top: 10%;">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col">
+                      <label class="control control--checkbox">
+                        <input type="checkbox" class="js-check-all"/>
+                        <div class="control__indicator"></div>
+                      </label>
+                    </th>
+                    <th scope="col">Author Name</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">view</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      <label class="control control--checkbox">
+                        <input type="checkbox"/>
+                        <div class="control__indicator"></div>
+                      </label>
+                    </th>
+                    <td>
+                      {{ $post->user->username }}
+                    </td>
+                    <td>
+                      {{ $post->title }}
+                    <td>
+                      <small class="d-block">{!! $post->body !!}</small>
+                    </td>
+                    <td> <img src="{{ asset('/storage/cover_image/'.$post->cover_image) }}"/></td>
+                    <td>
+                      <ul class="persons">
+                        <li>
+                          <a href="#">
+                            Read Full Post
+                          </a>
+                        </li>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+              {!! $data->links() !!}
           </div>
         </div>
-      
-    
 
       
     @endif

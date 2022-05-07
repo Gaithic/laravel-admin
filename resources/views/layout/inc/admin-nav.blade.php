@@ -62,7 +62,7 @@
         {{-- <img src="" class="img-circle elevation-2" alt="User Image"> --}}
       </div>
       <div class="info">
-        <a href="#" class="d-block">Name</a>
+        <a href="#" class="d-block">{{ auth()->user()->username }}</a>
       </div>
     </div>
 
@@ -73,7 +73,7 @@
               with font-awesome or any other icon font library -->
 
         <li class="nav-item">
-          <a href="pages/widgets.html" class="nav-link">
+          <a href="{{ route('auth.dashboard') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard

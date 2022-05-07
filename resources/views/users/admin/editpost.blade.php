@@ -14,7 +14,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-            <li class="breadcrumb-item active"></li>
+            <li class="breadcrumb-item active">Post's</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -53,10 +53,10 @@
 
       <div class="form-group" style="margin:10px;">
         <input type="radio" id="approved" name="isapproved" value="1" style="accent-color: green;">
-          <label for="Appraved" style="color: green;" >Enabled</label>
+          <label for="Appraved" style="color: green;" >Approve</label>
     <br>
-        <input type="radio" id="approved" name="isapproved" value="2" style="accent-color: red;">
-        <label for="cancel" style="color:red;">Disabled</label>
+        <input type="radio" id="approved" name="isapproved" value="3" style="accent-color: red;">
+        <label for="cancel" style="color:red;" >Reject</label>
   </div>
 
 
@@ -88,7 +88,6 @@
             rules: {
                 title: "required",
                 body: "required",
-                cover_image: "required",
                 isapproved: "required",
 
             }

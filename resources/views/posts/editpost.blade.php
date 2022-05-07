@@ -37,11 +37,24 @@
         <input type="text" class="form-control"   name="title"  placeholder="Post Name" value="{{$posts->title}}">
       </div>
 
+      @error('title')
+      <div class="">
+          <strong style="color: red;">{{ $message }}</strong>
+      </div>
+
+    @enderror
+
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Body</label>
         <textarea type="text" class="ckeditor form-control" name="body" placeholder="Enter Message Here">{!!$posts->body!!}</textarea>
       </div>
 
+      @error('body')
+      <div class="">
+          <strong style="color: red;">{{ $message }}</strong>
+      </div>
+
+    @enderror
 
       <div class="form-group">
         <label for="exampleInputEmail1" >Post Image</label>

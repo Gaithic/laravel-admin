@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminCeateUserValidation;
 use App\Http\Requests\ManageUsersValidation;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -51,7 +53,7 @@ class AdminController extends Controller
     }
 
 
-    public function editUsers( $id){
+    public function editUsers($id){
         $user = User::findOrFail($id);
         return view('users.admin.editusers',
         [
@@ -64,6 +66,7 @@ class AdminController extends Controller
       $user->username = $request->username;
       $user->email  = $request->email;
       $user->contact = $request->contact;
+      $user->status = $request->get('status');
       $res = $user->save();
       if($res){
           return redirect()->intended(route('edit-users', ['id' => $user->id]))->with('success', 'User Updated Successfully');
@@ -92,7 +95,7 @@ class AdminController extends Controller
             $posts->title = $request->title;
             $posts->body = $request->body;
             $posts->user_id = Auth::user()->id;
-            $posts->isapproved = 2;
+            $posts->isapproved = $request->get('isapproved');
             $res = $posts->save();
             if($res){
                 return redirect()->back()->with('success', "Updated Successfully");
@@ -107,16 +110,22 @@ class AdminController extends Controller
         public function createUserView(){
             return view('users.admin.createuser')->with('success', 'User Created Success');
         }
-        public function createUser(Request $request){
+
+
+        
+        public function createUser(AdminCeateUserValidation $request){
             $user = new User();
             $user->username  = $request->username;
             $user->email = $request->email;
             $user->contact = $request->contact;
-            $user->password = $request->password;
-            $user->role_id   = $request->role_id;
+            $user->role_id = $request->get('role_id');
+            $user->status = $request->get('status');
+            $user->password = Hash::make($request->password);
             $res = $user->save();
             if($res){
                 return redirect()->back()->with('success', 'User Created Successfull');
+            }else{
+                return redirect()->back()->with('error' ,'Email already exit!');
             }
 
         }

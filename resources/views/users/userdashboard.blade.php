@@ -45,6 +45,7 @@
                           <a href="#!">{{ $post->user->username }}</a><br>
                           {{ $post->created_at }}
                       </p>
+                      <img src="{{ asset('/storage/cover_image/'.$post->cover_image) }}"/>
                   </div>
                   <!-- Divider-->
                   <hr class="my-4" />

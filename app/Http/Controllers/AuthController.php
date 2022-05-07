@@ -23,10 +23,12 @@ class AuthController extends Controller
 
     public function mainIndex(){
         $title = 'To See All  Your Posts Here';
+        $data = User::paginate(5);
         $posts = Post::all();
             return view('users.mainDashboard', [
                 'title' => $title,
-                'posts' => $posts
+                'posts' => $posts,
+                'data' => $data
             ]);
         
     }
@@ -92,6 +94,7 @@ class AuthController extends Controller
         $users->contact = $request->contact;
         $users->password = Hash::make($request->password);
         $users->role_id = 3;
+        $users->status = 1;
         $res = $users->save();
         if($res){
 
@@ -118,23 +121,23 @@ class AuthController extends Controller
          * first get credentials form above function
          * or getCredentials function
         */
+  
+            if(Auth::attempt(
+                [
+                    'email' =>$request->email,
+                    'password' => $request->password
+                ]
+                )){
+                    if(Auth::check()){
+                            return redirect()->intended(route('auth.dashboard'))->with('success', "You Have logged In!");
+                    }
 
-        if(Auth::attempt(
-            [
-                'email' =>$request->email,
-                'password' => $request->password
-            ]
-            )){
-                if(Auth::check()){
-                    return redirect()->intended(route('auth.dashboard'))->with('success', "You Have logged In!");
+
+
+                }else{
+                    return redirect()->intended(route('login'))->with('error', 'Kindly register Email First!');
                 }
-
-
-
-            }else{
-                return redirect()->intended(route('login'))->with('error', 'Kindly register Email First!');
-            }
-
+        
 
     }
 
@@ -152,15 +155,21 @@ class AuthController extends Controller
 
 
     public function dashboard(){
-        $title = "Dashboard";
+        $title = "To Dashboard";
         $user = Auth::user();
         $posts  = Post::with('user')->get();
+        $pending = Post::where('isapproved', '=', 2);
+        $reject = Post::where('isapproved', '=', 3);
+        
         if($user->role_id == 1){
             return view('users.admindashboard',
             [
                 'title' => $title,
                 'user' => $user,
-                'posts' => $posts
+                'posts' => $posts,
+                'pending' => $pending,
+                'reject' => $reject
+
             ])->with('success', 'Welcome to Admin Dashboard!');
         }
         elseif($user->role_id == 2){

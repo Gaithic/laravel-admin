@@ -31,33 +31,74 @@
     <div class="card-body">
       <div class="form-group">
         <label for="exampleInputEmail1" style="color: #222;">User Name</label>
-        <input type="text" class="form-control"  name="username" placeholder="User Name"  >
+        <input type="text" class="form-control"  name="username" placeholder="User Name"  value="{{ old('username') }}">
       </div>
+
+      @error('username')
+      <div class="" role="alert">
+          <small>
+              <strong class="alert alert-danger">{{ $message }}</strong>
+          </small>
+      </div>
+      @enderror
 
       <div class="form-group">
         <label for="exampleInputEmail1" style="color: #222;">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" >
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" {{ old('email') }}>
       </div>
+
+      @error('email')
+      <div class="" role="alert">
+          <small>
+              <strong class="alert alert-danger">{{ $message }}</strong>
+          </small>
+      </div>
+      @enderror
 
 
       <div class="form-group">
         <label for="exampleInputEmail1" style="color: #222;" >User Contact</label>
-        <input type="text" class="form-control"  name="contact" placeholder="User Contact">
+        <input type="text" class="form-control"  name="contact" placeholder="User Contact" {{ old('contact') }}>
       </div>
+
+      @error('contact')
+      <div class="" role="alert">
+          <small>
+              <strong class="alert alert-danger">{{ $message }}</strong>
+          </small>
+      </div>
+      @enderror
 
       <div class="form-group">
         <label for="exampleInputEmail1" style="color: #222;" >User Password</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="User Password" >
       </div>
 
+      @error('password')
+      <div class="" role="alert">
+          <small>
+              <strong class="alert alert-danger">{{ $message }}</strong>
+          </small>
+      </div>
+      @enderror
+
+
       <div class="form-group">
         <label for="exampleInputEmail1" style="color: #222;" >Confirm Password</label>
-        <input type="password" class="form-control"  name="confirm-password" placeholder="Confirm Password" >
+        <input type="password" class="form-control"  name="password_confirmation" placeholder="Confirm Password" >
       </div>
+      
+      @error('password')
+      <div class="" role="alert">
+          <small>
+              <strong class="alert alert-danger">{{ $message }}</strong>
+          </small>
+      </div>
+      @enderror
 
       <div class="form-group">
         <label for="exampleInputEmail1" style="color: #222;" >Role id</label>
-        <select name="cars" id="cars">
+        <select name="role_id" id="role_id">
             <option >Select</option>
             <option value="1">Admin</option>
             <option value="2">Manager</option>
@@ -66,14 +107,32 @@
       </div>
 
 
+      @error('role_id')
+      <div class="" role="alert">
+          <small>
+              <strong class="alert alert-danger">{{ $message }}</strong>
+          </small>
+      </div>
+      @enderror
+
 
       <div class="form-group" style="margin:10px;">
-        <input type="radio" id="approved" name="isapproved" value="1" style="accent-color: green;">
+        <input type="radio" id="approved" name="status" value="1" style="accent-color: green;" >
           <label for="Appraved" style="color: green;" >Enabled</label>
     <br>
-        <input type="radio" id="approved" name="isapproved" value="2" style="accent-color: red;">
+        <input type="radio" id="approved" name="status" value="0" style="accent-color: red;">
         <label for="cancel" style="color:red;">Disabled</label>
-  </div>
+    </div>
+
+    @error('status')
+    <div class="" role="alert">
+        <small>
+            <strong class="alert alert-danger">{{ $message }}</strong>
+        </small>
+    </div>
+    @enderror
+
+    
 
 
 

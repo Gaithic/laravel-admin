@@ -49,10 +49,11 @@
 
 
       <div class="form-group" style="margin:10px;">
-        <input type="radio" id="approved" name="isapproved" value="1" style="accent-color: green;">
+        {{-- <input type="radio" id="approved" name="status" value="{{ $user->status == 1 ? 'checked' : '' }}"   style="accent-color: green;" > --}}
+          <input type="radio" name="status"  value="1" {{ ($user->status == 1 ? 'checked' : '') }}>
           <label for="Appraved" style="color: green;" >Enabled</label>
     <br>
-        <input type="radio" id="approved" name="isapproved" value="2" style="accent-color: red;">
+        <input type="radio" id="approved" name="status" value="0" style="accent-color: red;" {{ ($user->status == 0 ? 'checked' : '') }}>
         <label for="cancel" style="color:red;">Disabled</label>
   </div>
 

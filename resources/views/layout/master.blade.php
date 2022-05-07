@@ -29,19 +29,19 @@
         {{-- //use laravel Route::has('login function
         to check the user is logged in or not') --}}
 
-           @if (Route::has('login'))
+            @if (Route::has('login'))
                 @if(Auth::check())
 
                     @include('layout.inc.header')
-                    {{-- @include('layout.inc.message') --}}
+                    @include('layout.inc.message')
                     @include('layout.inc.usernav')
                 @else
-                    {{-- @include('layout.inc.message') --}}
+                    @include('layout.inc.message')
                     @include('layout.inc.frontnav')
 
 
                 @endif
-
+ 
             @endif
 
 

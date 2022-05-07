@@ -62,7 +62,7 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                   <div class="inner">
-                    <h3></h3>
+                    <h3>{{ $pending->count() }}</h3>
                     <p>Pending For Approval</p>
                   </div>
                   <div class="icon">
@@ -76,7 +76,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                   <div class="inner">
-                    <h3>65</h3>
+                    <h3>{{ $reject->count() }}</h3>
 
                     <p>Reject Post</p>
                   </div>

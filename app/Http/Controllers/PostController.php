@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormsupdateValidation;
 use App\Http\Requests\ManageUsersValidation;
 use App\Http\Requests\PostCreateValidation;
+use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\User;
-use  DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB as DB;
 use Symfony\Component\Console\Input\Input;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -25,11 +26,13 @@ class PostController extends Controller
         [
             'title' => $title,
             'user'  => $user,
+            'posts' =>$posts
         ])->with('success', 'Lets Create something!');
     }
 
 
-    public function savePost(Request $request){
+ 
+    public function savePost(PostRequest $request){
         if($request->hasFile('cover_image')){
             $file = $request->file('cover_image');
             $fileWithExt = $file->getClientOriginalName();
@@ -62,8 +65,18 @@ class PostController extends Controller
      */
 
     public function postView(Request $request, ){
-
-        return view('users.status');
+        $title = 'title';
+        $posts = Post::all();
+        $pending = Post::where('isapproved', '=', 2);
+        $reject = Post::where('isapproved', '=', 3);
+        return view('users.status',
+            [
+                'title' => $title,
+                'posts' => $posts,
+                'pending' => $pending,
+                'reject' => $reject
+            ]
+            );   
 
     }
 
@@ -78,8 +91,8 @@ class PostController extends Controller
     }
 
 
-    public function updatePost(Request $request, $id){
-
+    public function updatePost(PostRequest $request, $id){
+        $posts = Post::find($id);
         if($request->hasFile('cover_image')){
             $file = $request->file('cover_image');
             $fileWithExt = $file->getClientOriginalName();
@@ -87,20 +100,17 @@ class PostController extends Controller
             $extension = $request->file('cover_image')->getClientOriginalExtension();
             $fileName = $filepathinfo.'_'.time().'.'.$extension;
             $path = $file->move('storage/cover_image', $fileName);
-        }else{
-            $fileName = 'Noimage.jpg';
+            $posts->cover_image = $fileName;
         }
-
-        $posts = Post::find($id);
+     
         $posts->title = $request->title;
         $posts->body = $request->body;
-        $posts->cover_image = $fileName;
         $posts->user_id = Auth::user()->id;
         $posts->isapproved = 2;
         $res = $posts->save();
 
         if($res){
-            return redirect()->intended(route('user-post'))->with('success', 'Blog is created Wait admin approval for publish');
+            return redirect()->intended(route('user-post'))->with('success', 'Blog is updated successfully!');
         }
         return redirect()->intended(route('create-post'))->with('error', 'Oops something Went wrong Try again later!');
 
