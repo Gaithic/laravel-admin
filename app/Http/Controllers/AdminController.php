@@ -77,6 +77,8 @@ class AdminController extends Controller
 
         public function adminEditPost(Request $request, $id)
         {
+            $posts = Post::find($id);
+
             if($request->hasFile('cover_image')){
                 $file = $request->file('cover_image');
                 $fileWithExt = $file->getClientOriginalName();
@@ -84,14 +86,11 @@ class AdminController extends Controller
                 $extension = $request->file('cover_image')->getClientOriginalExtension();
                 $fileName = $filepathinfo.'_'.time().'.'.$extension;
                 $path = $file->move('storage/cover_image', $fileName);
-            }else{
-                $fileName = 'Noimage.jpg';
+                $posts->cover_image = $fileName;
             }
 
-            $posts = Post::find($id);
             $posts->title = $request->title;
             $posts->body = $request->body;
-            $posts->cover_image = $fileName;
             $posts->user_id = Auth::user()->id;
             $posts->isapproved = 2;
             $res = $posts->save();
@@ -102,6 +101,23 @@ class AdminController extends Controller
 
 
 
+
+        }
+
+        public function createUserView(){
+            return view('users.admin.createuser')->with('success', 'User Created Success');
+        }
+        public function createUser(Request $request){
+            $user = new User();
+            $user->username  = $request->username;
+            $user->email = $request->email;
+            $user->contact = $request->contact;
+            $user->password = $request->password;
+            $user->role_id   = $request->role_id;
+            $res = $user->save();
+            if($res){
+                return redirect()->back()->with('success', 'User Created Successfull');
+            }
 
         }
 
